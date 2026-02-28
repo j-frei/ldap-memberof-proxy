@@ -16,6 +16,8 @@ This is sometimes necessary to support LDAP groups for applications (e.g., Nextc
 - **Lightweight**: Alpine-based Docker image
 - **Low-Maintenance**: No complex service states, no external service requirements
 
+**Security Note**: This proxy is meant to be integrated to only interact with a particular target application (e.g., Nextcloud). If the LDAP server requires authentication, the proxy needs to know the credentials, and provides an **anonymous** LDAP view. Thus, **apply appropriate measures** to avoid illegitimate use and access of the proxy service. For instance, rely on Docker-based network isolation to limit remote access, and avoid exposing the proxy port to remote hosts (e.g., by firewall rules).
+
 ## How to Use
 
 Download the required files:
