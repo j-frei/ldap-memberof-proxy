@@ -61,7 +61,7 @@ except ValueError:
 
 # Threshold of user entries when memberOf subqueries are stopped. <= 0 means unlimited
 LOOKUP_MAX_USERS = int(os.environ.get("LOOKUP_MAX_USERS", 0))
-DB_PATH = os.environ.get("DB_PATH", "/app/data/ldap_cache.db")
+DB_PATH = os.environ.get("DB_PATH", "data/ldap_cache.db")
 
 UPSTREAM_HOST = os.environ.get("UPSTREAM_HOST", "ldap.example.com")
 UPSTREAM_PORT = int(os.environ.get("UPSTREAM_PORT", 389))
@@ -92,7 +92,9 @@ observer.start()
 # SQLite-based group membership cache (only used if CACHE_MODE=DATABASE)
 class CacheDB:
     def __init__(self):
-        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+        db_dir = os.path.dirname(DB_PATH)
+        if db_dir:
+            os.makedirs(db_dir, exist_ok=True)
         self.conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 
         self.conn.execute("""
