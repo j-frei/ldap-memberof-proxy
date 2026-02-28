@@ -36,6 +36,7 @@ Now, continue either with `Docker-compose`, `Docker only`, or `Standalone`.
 <details>
 <summary>Click to show Docker-compose instructions.</summary>
 If you are using Docker-compose, add the following service to your `docker-compose.yml`:
+
 ```yml
 services:
   ... other services ...
@@ -85,6 +86,7 @@ docker compose up -d
 <details>
 <summary>Click to show plain Docker instructions.</summary>
 If you are using Docker, run the following commands:
+
 ```bash
 # Build the image
 docker build -t ldap-memberof-proxy:latest ./ldap-memberof-proxy
