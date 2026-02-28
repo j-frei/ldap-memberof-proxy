@@ -1,0 +1,26 @@
+
+services:
+  ldap-memberof-proxy:
+    build: .
+    image: ldap-memberof-proxy:latest
+    container_name: ldap-memberof-proxy
+    pull_policy: never
+    restart: unless-stopped
+    ports:
+      - "3890:3890"
+    environment:
+      # Basic settings
+      - LISTEN_PORT=3890
+      - LOG_LEVEL=INFO
+      - CACHE_MODE=LIVE
+
+      # Upstream LDAP
+      - UPSTREAM_HOST=ldap.example.com
+      - UPSTREAM_PORT=389
+      - UPSTREAM_MODE=NONE
+
+      # LDAP Schema
+      - GROUP_SEARCH_BASE=ou=groups,dc=example,dc=com
+      - GROUP_MEMBER_ATTR=memberUid
+      - USER_ID_ATTR=uid
+

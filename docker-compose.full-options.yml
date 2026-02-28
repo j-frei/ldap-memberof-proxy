@@ -1,0 +1,68 @@
+services:
+  ldap-memberof-proxy:
+    build: .
+    image: ldap-memberof-proxy:latest
+    container_name: ldap-memberof-proxy
+    restart: unless-stopped
+    ports:
+      # Expose the LDAP proxy port
+      - "3890:3890"
+    environment:
+      # Basic Configuration
+      - LISTEN_PORT=3890
+      - LOG_LEVEL=INFO
+      - CACHE_TTL=300
+
+      # Cache Mode: LIVE (real-time) or DATABASE (SQLite cache)
+      - CACHE_MODE=LIVE
+
+      # DATABASE mode only: crawl schedule (seconds or cron expression)
+      # Examples: "86400" (daily), "0 2 * * *" (2 AM daily)
+      # - CRAWL_INTERVAL=86400
+      # - DB_PATH=/app/data/ldap_cache.db
+
+      # LIVE mode only: max users per query (<=0 unlimited)
+      - LOOKUP_MAX_USERS=50
+
+      # Upstream LDAP Server
+      - UPSTREAM_HOST=ldap.example.com
+      - UPSTREAM_PORT=389
+
+      # Upstream connection mode: NONE, STARTTLS, or TLS
+      - UPSTREAM_MODE=NONE
+      - UPSTREAM_TLS_VERIFY=true
+
+      # Bind credentials (optional, for authenticated queries)
+      - BIND_DN=
+      - BIND_PASSWORD=
+      # Or use password file:
+      # - BIND_PASSWORD_FILE=/run/secrets/ldap_password
+
+      # LDAP Schema Mapping
+      - GROUP_SEARCH_BASE=ou=groups,dc=example,dc=com
+      - GROUP_MEMBER_ATTR=memberUid
+      - USER_ID_ATTR=uid
+      - MEMBEROF_ATTR=memberOf
+
+      # TLS Configuration (for proxy server)
+      # Leave empty for plain LDAP, or provide cert/key for LDAPS
+      - TLS_CERT_FILE=
+      - TLS_KEY_FILE=
+
+    # Optional: Mount TLS certificates
+    # volumes:
+    #   - ./certs/server.crt:/etc/certs/server.crt:ro
+    #   - ./certs/server.key:/etc/certs/server.key:ro
+
+    # Optional: Persist DATABASE mode cache
+    # volumes:
+    #   - ./ldap_data:/app/data
+
+    # Optional: Use Docker secrets for sensitive data
+    # secrets:
+    #   - ldap_password
+
+# Optional: Define secrets
+# secrets:
+#   ldap_password:
+#     file: ./secrets/ldap_password.txt

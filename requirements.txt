@@ -1,0 +1,5 @@
+twisted[tls]==25.5.0
+ldaptor==21.2.0
+ldap3==2.9.1
+cachetools==7.0.1
+croniter==6.0.0
