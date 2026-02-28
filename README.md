@@ -216,6 +216,7 @@ In LIVE mode, every incoming user request is forwarded to the upstream LDAP serv
 For each user entry in the response from the upstream LDAP server, another LDAP query is sent to the upstream LDAP server in order to determine the group memberships of the users.
 
 **Pros**: Always up-to-date, no disk usage, lean.
+
 **Cons**: Higher upstream query load, and **can be very slow for LDAP response containing multiple users**!
 
 **Only use this mode if you know that your application queries only individual users.**
@@ -225,6 +226,7 @@ For each user entry in the response from the upstream LDAP server, another LDAP 
 The membership tuple (user, group)-pairs are stored into a SQLite database and re-crawled on a fixed interval.
 
 **Pros**: Very fast, low upstream load, handles large result sets
+
 **Cons**: Slight data staleness (based on crawl interval), SQLite database may use some disk space in **very** large LDAP environments. (For reference: 18MB for 28,000 total users with 260,000 total memberships.)
 
 ## Some Advanced Examples
