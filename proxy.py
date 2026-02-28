@@ -1,3 +1,16 @@
+#!/usr/bin/env python3
+"""
+LDAP MemberOf Proxy
+
+Transparent LDAP proxy that dynamically injects memberOf attributes into
+search results when upstream LDAP servers lack memberOf overlay support.
+
+Author: Johann Frei
+Copyright: (c) 2026 Johann Frei
+License: MIT License
+Repository: https://github.com/jfrei/ldap-memberof-proxy
+"""
+
 import os
 import sys
 import logging
