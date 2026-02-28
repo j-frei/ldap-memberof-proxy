@@ -141,6 +141,7 @@ python3 ldap-memberof-proxy/proxy.py
 </details>
 
 ## Configuration
+**Note**: All configuration is done via ENV variables. Check `docker-compose.full-options.yml` to directly see all available ENV variables.
 
 ### Basic Settings
 
