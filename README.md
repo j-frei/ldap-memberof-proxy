@@ -113,6 +113,10 @@ and you are done.
 </details>
 
 ### Standalone
+<details>
+<summary>Click to show standalone instructions.</summary>
+If you want to run the script as standalone, run the following commands:
+
 ```bash
 # Create and enter venv
 python3 -m venv venv
@@ -133,6 +137,8 @@ GROUP_MEMBER_ATTR=memberUid \
 USER_ID_ATTR=uid \
 python3 proxy.py
 ```
+
+</details>
 
 ## Configuration
 
@@ -213,7 +219,7 @@ For each user entry in the response from the upstream LDAP server, another LDAP 
 
 **Only use this mode if you know that your application queries only individual users.**
 
-** DATABASE Mode**:
+**DATABASE Mode**:
 
 The membership tuple (user, group)-pairs are stored into a SQLite database and re-crawled on a fixed interval.
 
