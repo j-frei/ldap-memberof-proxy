@@ -227,7 +227,7 @@ The membership tuple (user, group)-pairs are stored into a SQLite database and r
 
 **Pros**: Very fast, low upstream load, handles large result sets
 
-**Cons**: Slight data staleness (based on crawl interval), SQLite database may use some disk space in **very** large LDAP environments. (For reference: 18MB for 28,000 total users with 260,000 total memberships.)
+**Cons**: Slight data staleness (based on crawl interval), SQLite database may use some disk space in **very** large LDAP environments. (For reference: 50MB for 28,000 total users with 260,000 total memberships.)
 
 ## Some Advanced Examples
 
