@@ -8,7 +8,7 @@ search results when upstream LDAP servers lack memberOf overlay support.
 Author: Johann Frei
 Copyright: (c) 2026 Johann Frei
 License: MIT License
-Repository: https://github.com/jfrei/ldap-memberof-proxy
+Repository: https://github.com/j-frei/ldap-memberof-proxy
 """
 
 import os
