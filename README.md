@@ -54,7 +54,7 @@ services:
     environment:
       # Basic settings
       - LISTEN_PORT=3890
-      - LOG_LEVEL=INFO
+      - LOG_LEVEL=WARNING
       - CACHE_MODE=LIVE
 
       # Upstream LDAP
@@ -97,7 +97,7 @@ docker run -d \
   --restart unless-stopped \
   -p 3890:3890 \
   -e LISTEN_PORT=3890 \
-  -e LOG_LEVEL=INFO \
+  -e LOG_LEVEL=WARNING \
   -e CACHE_MODE=LIVE \
   -e UPSTREAM_HOST=ldap.example.com \
   -e UPSTREAM_PORT=389 \
@@ -123,11 +123,11 @@ python3 -m venv venv
 source venv/bin/activate
 
 # Install dependencies
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r ldap-memberof-proxy/requirements.txt
 
 # Run the script
 LISTEN_PORT=3890 \
-LOG_LEVEL=INFO \
+LOG_LEVEL=WARNING \
 CACHE_MODE=LIVE \
 UPSTREAM_HOST=ldap.example.com \
 UPSTREAM_PORT=389 \
@@ -135,7 +135,7 @@ UPSTREAM_MODE=NONE \
 GROUP_SEARCH_BASE="ou=groups,dc=example,dc=com" \
 GROUP_MEMBER_ATTR=memberUid \
 USER_ID_ATTR=uid \
-python3 proxy.py
+python3 ldap-memberof-proxy/proxy.py
 ```
 
 </details>

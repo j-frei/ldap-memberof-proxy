@@ -10,7 +10,7 @@ services:
     environment:
       # Basic Configuration
       - LISTEN_PORT=3890
-      - LOG_LEVEL=INFO
+      - LOG_LEVEL=WARNING
       - CACHE_TTL=300
 
       # Cache Mode: LIVE (real-time) or DATABASE (SQLite cache)

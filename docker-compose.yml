@@ -11,7 +11,7 @@ services:
     environment:
       # Basic settings
       - LISTEN_PORT=3890
-      - LOG_LEVEL=INFO
+      - LOG_LEVEL=WARNING
       - CACHE_MODE=LIVE
 
       # Upstream LDAP
