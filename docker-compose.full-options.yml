@@ -20,6 +20,7 @@ services:
       # Examples: "86400" (daily), "0 2 * * *" (2 AM daily)
       # - CRAWL_INTERVAL=86400
       # - DB_PATH=/app/data/ldap_cache.db
+      # - CRAWL_ALWAYS_ON_STARTUP=true
 
       # LIVE mode only: max users per query (<=0 unlimited)
       - LOOKUP_MAX_USERS=50

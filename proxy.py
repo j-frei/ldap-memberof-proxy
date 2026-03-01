@@ -72,6 +72,9 @@ except ValueError:
         logging.critical(f"Invalid CRAWL_INTERVAL '{CRAWL_INTERVAL_STR}': {e}")
         sys.exit(1)
 
+# Only relevant for DATABASE mode
+CRAWL_ALWAYS_ON_STARTUP = os.environ.get("CRAWL_ALWAYS_ON_STARTUP", "true").lower() == "true"
+
 # Threshold of user entries when memberOf subqueries are stopped. <= 0 means unlimited
 LOOKUP_MAX_USERS = int(os.environ.get("LOOKUP_MAX_USERS", 0))
 DB_PATH = os.environ.get("DB_PATH", "data/ldap_cache.db")
@@ -119,6 +122,10 @@ class CacheDB:
         """)
         self.conn.execute("CREATE INDEX IF NOT EXISTS idx_uid ON group_members(uid)")
         self.conn.commit()
+
+    def has_data(self):
+        cursor = self.conn.execute("SELECT COUNT(*) FROM group_members")
+        return cursor.fetchone()[0] > 0
 
     def get_groups(self, uid):
         cursor = self.conn.execute(
@@ -303,8 +310,11 @@ class ProxyFactory(protocol.ServerFactory):
 # Entry point
 if __name__ == '__main__':
     if CACHE_MODE == "DATABASE":
-        # Run initial crawl immediately
-        threading.Thread(target=crawl_groups).start()
+        # Run initial crawl if enabled, or if the database has no data yet
+        if CRAWL_ALWAYS_ON_STARTUP or not db.has_data():
+            threading.Thread(target=crawl_groups).start()
+        else:
+            logging.info("Skipping initial crawl (CRAWL_ALWAYS_ON_STARTUP=false and existing database found).")
         # Schedule subsequent crawls
         schedule_next_crawl()
 

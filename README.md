@@ -161,6 +161,7 @@ python3 ldap-memberof-proxy/proxy.py
 |----------|---------|-------------|
 | `CACHE_MODE` | `LIVE` | `LIVE` (real-time queries) or `DATABASE` (SQLite cache) |
 | `CRAWL_INTERVAL` | `86400` | **DATABASE mode only**: Crawl schedule (seconds or cron) |
+| `CRAWL_ALWAYS_ON_STARTUP` | `true` | **DATABASE mode only**: Perform always a full crawl on startup. Otherwise, it only performs a crawl on startup if the SQLite database is empty or missing. |
 | `DB_PATH` | `/app/data/ldap_cache.db` | SQLite database path |
 | `LOOKUP_MAX_USERS` | `0` | **LIVE mode only**: Max users per query (<=0 = unlimited) |
 
@@ -263,7 +264,7 @@ services:
     environment:
       ...
       - CACHE_MODE=DATABASE
-      - CRAWL_INTERVAL="0 */4 * * *"  # Every 4 hours
+      - "CRAWL_INTERVAL=0 */4 * * *" # Every 4 hours
       - DB_PATH=/app/data/ldap_cache.db
     volumes:
       - ./ldap_data:/app/data
